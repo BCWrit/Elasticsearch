@@ -12,7 +12,9 @@ From here, paste the following command into the prompt: ```apt install apache2 m
 
 You'll need to configure your new Apache modules: ```a2enmod rewrite```. And also initiate your MySQL database: ```systemctl enable mysql``` and then ```mysql_secure_installation```. You'll be prompted to create a password. Mark this down as you'll need it to initiate the Omeka MySQL user account in the next section.
 
-And finally Tesseract for OCR functionality: ```apt install tesseract-ocr-eng```.
+Tesseract for OCR functionality: ```apt install tesseract-ocr-eng```.
+
+And finally sPaCy for named entity recognition: ```pip install nltk spacy``` and ```python3 -m spacy download en_core_web_sm```.
 
 ## Imagemagick and PHP set-up
 
@@ -23,4 +25,4 @@ Next, we need to change a few values on the server to devote more resources to t
 Navigate in a web browser to the url of your Omeka server and log in. Use the menus to navigate to "Admin -> Settings -> General -> ImageMagick Directory". In this menu, you'll type in "/usr/bin/convert/" into the field for "ImageMagick Directory". In "Admin -> Settings -> API", check the box for "Enable API".
 
 ## Last step: Install the plug-ins
-Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll need to check and insert the name of the Omeka directory on your server: this will change as new versions are released. Type ```wget 
+Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll need to check and insert the name of the Omeka directory on your server: this will change as new versions are released. Type ```wget https://github.com/BCWrit/Archiviz```, which will download this repo to your server. Then type ```unzip [name of zipfile]``` to unzip the plug-ins.
