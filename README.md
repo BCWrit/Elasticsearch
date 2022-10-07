@@ -16,7 +16,9 @@ You'll need to configure your new Apache modules: ```a2enmod rewrite```. And als
 
 Tesseract for OCR functionality: ```apt install tesseract-ocr-eng```.
 
-And finally sPaCy for named entity recognition: ```pip install nltk spacy``` and ```python3 -m spacy download en_core_web_sm```.
+And finally sPaCy for named entity recognition: ```pip install nltk spacy``` and ```python3 -m spacy download en_core_web_sm```. 
+
+**Note:** The language models for tesseract and spacy should be fine to change if your documents aren't in English, but you'll need to verify the model names.
 
 ### Imagemagick and PHP Set-up
 
@@ -41,4 +43,12 @@ That's it for the front-end set-up!
 
 ### OCR
 
-For the purposes of this tutorial, we'll assume that you already have text documents in your Omeka instance. And while you can read them on your computer screen, the computer itself can't yet. Therefore, we need to perform Optical Character Recognition (OCR) to get the in a state the computer can read. In the Omeka Admin interface, navigate to the OCR tab on the left side of the screen (this will only be here once you've completed the server-side install). You'll see three fields, one asking for the API key you just created, and two more asking for document IDs: you'll need to supply the range of documents you want the plug-in to OCR. You can find these numbers by navigating to the "Items" tab in the left menu, sorting by "Date Added", and hovering over the link for the first and last documents added to the collection. In the bottom left corner, a link for the item should display, with a number at the end. This is the ID Omeka assigned to the document: in our case, the documents range from 56 to 10,440, so that's what we'd put into the OCR fields (if you never delete anything from your Omeka collection, these numbers should go from 1 to _n_, but it's better to check in case things got wonky along the way). Input your key and document IDs in the OCR screen (ours is shown below as an example) and press "OCR Documents". This may take a while as your server reads and renders your documents as plain text.
+For the purposes of this tutorial, we'll assume that you already have text documents in your Omeka instance. And while you can read them on your computer screen, the computer itself can't yet. Therefore, we need to perform Optical Character Recognition (OCR) to get the in a state the computer can read. In the Omeka Admin interface, navigate to the OCR tab on the left side of the screen (this will only be here once you've completed the server-side install). You'll see three fields, one asking for the API key you just created, and two more asking for document IDs: you'll need to supply the range of documents you want the plug-in to OCR. You can find these numbers by navigating to the "Items" tab in the left menu, sorting by "Date Added", and hovering over the link for the first and last documents added to the collection. In the bottom left corner, a link for the item should display, with a number at the end. This is the ID Omeka assigned to the document: in our case, the documents range from 56 to 10,440, so that's what we'd put into the OCR fields (Remember these as they also work for the next step). Input your key and document IDs in the OCR screen (ours is shown below as an example) and press "OCR Documents". This may take a while as your server reads and renders your documents as plain text.
+
+### Autotagging and Tag Management
+
+You will get a success message when completed, at which point you should navigate to the "Autotagging" tab in the left menu. Input the API key and document ID range again and press "Tag Documents". This will identify the important people, places, and things in the collection: this forms the backbone for our knowledge graph. We've also provided the "Tag Management" tab where you can edit, delete, or add tags that we're identified correctly by the NER process.
+
+### Archiviz Knowledge Graph
+
+At this point, we're done with set-up and ready to check out Archiviz itself! Click on the name of your collection in the top left, then on "Search Items" in the top menu. This screen allows you to query your collection in different ways. You can search for a specific term in the search bar, or you can choose the number of nodes (corresponding to documents) you want to see by using the slider and clicking "Load Graph". The first option lets you see the world of the term you search, while the latter can be used for a more general visualization, or to limit the number of nodes displayed for less powerful systems.
