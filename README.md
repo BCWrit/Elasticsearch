@@ -4,7 +4,9 @@ Archiviz is a collection of three plug-ins for Omeka that allow users to digitiz
 
 Users install Archiviz in a standard Omeka Classic server, with a few additional necessary dependencies. If you've set up an Omeka server, you should be perfectly capable of executing these additional steps. If you had help setting up the server, you might want to pull in your helper for this.
 
-## Setting up the server
+## Back-end Set-up
+
+### Modifying the server
 
 When you're ready to start, you'll need to ssh into your Omeka server using the syntax ```ssh [yourusername]@[serverURLorIP]```, where you should put your corresponding information in the brackets. You'll be prompted for your password, which you should enter. Once on the system, you should type '''sudo bash''' to give yourself admin rights to the shell. You'll need these to install the dependencies. 
 
@@ -16,13 +18,27 @@ Tesseract for OCR functionality: ```apt install tesseract-ocr-eng```.
 
 And finally sPaCy for named entity recognition: ```pip install nltk spacy``` and ```python3 -m spacy download en_core_web_sm```.
 
-## Imagemagick and PHP set-up
+### Imagemagick and PHP Set-up
 
 Next, we need to change a few values on the server to devote more resources to the additional packages we've installed. To set up ImageMagick, type ```nano /etc/ImageMagick-7/policy.xml```. This will open up a simple text editor where you need to change two lines. Comment out (type a "#" before the line) ```<policy domain="coder" rights="read | write" pattern="PDF" />``` and change ```<policy domain="resource" name="disk" value="1GiB"/>``` to ```<policy domain="resource" name="disk" value="8GiB"/>```. For PHP, you'll type ```nano /etc/php/[version]/apache2/php.ini``` (Again, you'll need to provide the correct version number in the bracketed portion: you may need to navigate to that filepath to check the directory name.) You'll change the value of ```upload\max\_filesize = 2M``` to desired size (suggested: 30M) and the value of ```post \_max_size = 8M```. Finally, ```nano /application/config/config.ini``` and uncomment and change the value of ";upload.maxFileSize" to "10M". These changes increase the size of files Omeka, PHP, and ImageMagick will allow: you may or may not need it, but these values worked for us on our 10,000 document test collection.
 
-## Omeka set-up
+### Last step: Install the plug-ins
+Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll need to check and insert the name of the Omeka directory on your server: this will change as new versions are released. Type ```wget https://github.com/BCWrit/Archiviz```, which will download this repo to your server. Then type ```unzip [name of zipfile]``` to unzip the plug-ins. At this point, everything should be in working order, so we'll head back over to Omeka to give Archiviz a try.
 
-Navigate in a web browser to the url of your Omeka server and log in. Use the menus to navigate to "Admin -> Settings -> General -> ImageMagick Directory". In this menu, you'll type in "/usr/bin/convert/" into the field for "ImageMagick Directory". In "Admin -> Settings -> API", check the box for "Enable API".
+## Front-end Set-up
 
-## Last step: Install the plug-ins
-Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll need to check and insert the name of the Omeka directory on your server: this will change as new versions are released. Type ```wget https://github.com/BCWrit/Archiviz```, which will download this repo to your server. Then type ```unzip [name of zipfile]``` to unzip the plug-ins.
+### Omeka Set-up
+
+Navigate in a web browser to the url of your Omeka server and log in. First,, we'll want to make sure the plug-ins are recognized and turned on in Omeka. Go to "Plug-ins" in the top menu and click "Install" next to "OCR", "Tag Management", and "Autotagging".
+
+Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In this menu, you'll type "/usr/bin/" into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API".
+
+Next, click on your name in the top menu and navigate to API keys. Give the key a name (it doesn't matter), and click "Generate key". You'll need this key to work the plug-ins, so copy it somewhere.
+
+That's it for the front-end set-up!
+
+## Using Archiviz
+
+### OCR
+
+For the purposes of this tutorial, we'll assume that you already have text documents in your Omeka instance. And while you can read them on your computer screen, the computer itself can't yet. Therefore, we need to perform Optical Character Recognition (OCR) to get the in a state the computer can read. In the Omeka Admin interface, navigate to the OCR tab on the left side of the screen (this will only be here once you've completed the server-side install). You'll see three fields, one asking for the API key you just created, and two more asking for document IDs: you'll need to supply the range of documents you want the plug-in to OCR. You can find these numbers by navigating to the "Items" tab in the left menu, sorting by "Date Added", and hovering over the link for the first and last documents added to the collection. In the bottom left corner, a link for the item should display, with a number at the end. This is the ID Omeka assigned to the document: in our case, the documents range from 56 to 10,440, so that's what we'd put into the OCR fields (if you never delete anything from your Omeka collection, these numbers should go from 1 to _n_, but it's better to check in case things got wonky along the way). Input your key and document IDs in the OCR screen (ours is shown below as an example) and press "OCR Documents". This may take a while as your server reads and renders your documents as plain text.
