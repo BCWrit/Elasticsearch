@@ -37,7 +37,8 @@ Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In 
 
 Next, click on your name in the top menu and navigate to API keys. Give the key a name (it doesn't matter), and click "Generate key". You'll need this key to work the plug-ins, so copy it somewhere (Fig. 1)
 
-![API Key Generation](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-39-18.png "API Key Generation")
+Fig. 1
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-39-18.png "API Key Generation")
 
 That's it for the front-end set-up!
 
