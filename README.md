@@ -33,11 +33,17 @@ Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll ne
 
 Navigate in a web browser to the url of your Omeka server and log in. First,, we'll want to make sure the plug-ins are recognized and turned on in Omeka. Go to "Plug-ins" in the top menu and click "Install" next to "OCR", "Tag Management", and "Autotagging".
 
-Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In this menu, you'll type "/usr/bin/" into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API".
-
-Next, click on your name in the top menu and navigate to API keys. Give the key a name (it doesn't matter), and click "Generate key". You'll need this key to work the plug-ins, so copy it somewhere (Fig. 1)
+Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In this menu, you'll type "/usr/bin/" into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API". (Figs. 1 & 2)
 
 Fig. 1
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-39-39.png "ImageMagick Path")
+
+Fig. 2
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-39-48.png "Enable API")
+
+Next, click on your name in the top menu and navigate to API keys. Give the key a name (it doesn't matter), and click "Generate key". You'll need this key to work the plug-ins, so copy it somewhere. (Fig. 3)
+
+Fig. 3
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-39-18.png "API Key Generation")
 
 That's it for the front-end set-up!
@@ -46,12 +52,26 @@ That's it for the front-end set-up!
 
 ### OCR
 
-For the purposes of this tutorial, we'll assume that you already have text documents in your Omeka instance. And while you can read them on your computer screen, the computer itself can't yet. Therefore, we need to perform Optical Character Recognition (OCR) to get the in a state the computer can read. In the Omeka Admin interface, navigate to the OCR tab on the left side of the screen (this will only be here once you've completed the server-side install). You'll see three fields, one asking for the API key you just created, and two more asking for document IDs: you'll need to supply the range of documents you want the plug-in to OCR. You can find these numbers by navigating to the "Items" tab in the left menu, sorting by "Date Added", and hovering over the link for the first and last documents added to the collection. In the bottom left corner, a link for the item should display, with a number at the end. This is the ID Omeka assigned to the document: in our case, the documents range from 56 to 10,440, so that's what we'd put into the OCR fields (Remember these as they also work for the next step). Input your key and document IDs in the OCR screen (ours is shown below as an example) and press "OCR Documents". This may take a while as your server reads and renders your documents as plain text.
+For the purposes of this tutorial, we'll assume that you already have text documents in your Omeka instance. And while you can read them on your computer screen, the computer itself can't yet. Therefore, we need to perform Optical Character Recognition (OCR) to get the in a state the computer can read. In the Omeka Admin interface, navigate to the OCR tab on the left side of the screen (this will only be here once you've completed the server-side install). You'll see three fields, one asking for the API key you just created, and two more asking for document IDs: you'll need to supply the range of documents you want the plug-in to OCR. You can find these numbers by navigating to the "Items" tab in the left menu, sorting by "Date Added", and hovering over the link for the first and last documents added to the collection. In the bottom left corner, a link for the item should display, with a number at the end. This is the ID Omeka assigned to the document: in our case, the documents range from 56 to 10,440, so that's what we'd put into the OCR fields (Remember these as they also work for the next step). (Fig. 4) Input your key and document IDs in the OCR screen (ours is shown below as an example) and press "OCR Documents". This may take a while as your server reads and renders your documents as plain text. (Fig. 5)
+
+Fig. 4
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-47-14.png "Locating Document IDs")
+
+Fig. 5
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-53-02.png "Starting OCR")
+
 
 ### Autotagging and Tag Management
 
 You will get a success message when completed, at which point you should navigate to the "Autotagging" tab in the left menu. Input the API key and document ID range again and press "Tag Documents". This will identify the important people, places, and things in the collection: this forms the backbone for our knowledge graph. We've also provided the "Tag Management" tab where you can edit, delete, or add tags that we're identified correctly by the NER process.
 
+Fig. 6
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2013-03-15.png "Tag Management")
+
 ### Archiviz Knowledge Graph
 
-At this point, we're done with set-up and ready to check out Archiviz itself! Click on the name of your collection in the top left, then on "Search Items" in the top menu. This screen allows you to query your collection in different ways. You can search for a specific term in the search bar, or you can choose the number of nodes (corresponding to documents) you want to see by using the slider and clicking "Load Graph". The first option lets you see the world of the term you search, while the latter can be used for a more general visualization, or to limit the number of nodes displayed for less powerful systems.
+At this point, we're done with set-up and ready to check out Archiviz itself! Click on the name of your collection in the top left, then on "Search Items" in the top menu. This screen allows you to query your collection in different ways. You can search for a specific term in the search bar, or you can choose the number of nodes (corresponding to documents) you want to see by using the slider and clicking "Load Graph". The first option lets you see the world of the term you search, while the latter can be used for a more general visualization, or to limit the number of nodes displayed for less powerful systems. (Fig. 7)
+
+Fig. 7
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2013-06-18.png "Knowledge Graph Generation")
+
