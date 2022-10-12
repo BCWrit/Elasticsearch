@@ -68,6 +68,10 @@ You will get a success message when completed, at which point you should navigat
 Fig. 6
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2013-03-15.png "Tag Management")
 
+### Elasticsearch Indexing
+
+To connect your tags to the advanced search capabilities of Elasticsearch, you'll need to index them. To do this, go to the "Elasticsearch" tab on the left, click the "Index" tab at the top, and then click "Index". This will take a little bit and you should get a "Completed" message in the log when done.
+
 ### Archiviz Knowledge Graph
 
 At this point, we're done with set-up and ready to check out Archiviz itself! Click on the name of your collection in the top left, then on "Search Items" in the top menu. This screen allows you to query your collection in different ways. You can search for a specific term in the search bar, or you can choose the number of nodes (corresponding to documents) you want to see by using the slider and clicking "Load Graph". The first option lets you see the world of the term you search, while the latter can be used for a more general visualization, or to limit the number of nodes displayed for less powerful systems. (Fig. 7)
