@@ -1,6 +1,11 @@
 # Archiviz
 
-Archiviz is a collection of three plug-ins for Omeka that allow users to digitize text documents (OCR), identify important people, places, and things in them (TM or Tag Management), and then visualize and navigate their collection through an interactive knowledge graph showing where these important entities intersect (Archiviz, a modded version of Harvard's Elasticsearch wrapper for Omeka).
+Archiviz is a stack of four plug-ins for Omeka that allow users to: 
+
+1. digitize text documents (via the OCR plugin)
+2. generate tags for important people, places, and things in them (via the Autotagging NLP plugin)
+3. edit and manage those tags (via the Tag Management, or TM plugin)
+4. visualize and navigate their collection through an interactive knowledge graph showing where these important entities intersect (via Archiviz, a modded version of Harvard's Elasticsearch plugin for Omeka). 
 
 Users install Archiviz in a standard Omeka Classic server, with a few additional necessary dependencies. If you've set up an Omeka server, you should be perfectly capable of executing these additional steps. If you had help setting up the server, you might want to pull in your helper for this.
 
@@ -12,9 +17,9 @@ When you're ready to start, you'll need to ssh into your Omeka server using the 
 
 From here, paste the following command into the prompt: ```apt install apache2 mysql-server imagemagick php-mysql php-imagick unzip net-tools libapache2-mod-php php-xml php-mysql php-mbstring php-zip php-soap php-curl php-gd php-imap php-common php-dev libmcrypt-dev php-pear php-exif tesseract-ocr-eng```. This installs a variety of pretty standard web dev and sys admin packages necessary for getting Archiviz working. 
 
-You'll need to configure your new Apache modules: ```a2enmod rewrite```. And also initiate your MySQL database: ```systemctl enable mysql``` and then ```mysql_secure_installation```. You'll be prompted to create a password. Mark this down as you'll need it to initiate the Omeka MySQL user account in the next section.
+You'll need to configure your new Apache modules: ```a2enmod rewrite```. And also enable and configure your MySQL server process: ```systemctl enable mysql``` and then ```mysql_secure_installation```. You'll be prompted to create a password. Mark this down as you'll need it to initiate the Omeka MySQL user account in the next section.
 
-Tesseract for OCR functionality: ```apt install tesseract-ocr-eng```.
+Install Tesseract for OCR functionality: ```apt install tesseract-ocr-eng```.
 
 And finally sPaCy for named entity recognition: ```pip install nltk spacy``` and ```python3 -m spacy download en_core_web_sm```. 
 
@@ -33,7 +38,11 @@ Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll ne
 
 Navigate in a web browser to the url of your Omeka server and log in. First,, we'll want to make sure the plug-ins are recognized and turned on in Omeka. Go to "Plug-ins" in the top menu and click "Install" next to "OCR", "Tag Management", and "Autotagging".
 
-Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In this menu, you'll type "/usr/bin/" into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API". (Figs. 1 & 2)
+Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In this menu, you'll type 
+'''
+/usr/bin/
+'''
+into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API". (Figs. 1 & 2)
 
 Fig. 1
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-10-07%2012-39-39.png "ImageMagick Path")
