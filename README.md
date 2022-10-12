@@ -39,9 +39,9 @@ Back in the shell, ```cd /var/www/[omeka directory]/plugins```. Again, you'll ne
 Navigate in a web browser to the url of your Omeka server and log in. First,, we'll want to make sure the plug-ins are recognized and turned on in Omeka. Go to "Plug-ins" in the top menu and click "Install" next to "OCR", "Tag Management", and "Autotagging".
 
 Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In this menu, you'll type 
-'''
+```
 /usr/bin/
-'''
+```
 into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API". (Figs. 1 & 2)
 
 Fig. 1
