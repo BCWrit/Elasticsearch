@@ -182,7 +182,7 @@ You can click and drag these entities, which will rearrange them in relation to 
 Fig. 11
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-18-23.png "Connected Entities")
 
-This one (Fig. 12) contains both "Martin Luther King" and "Atlanta".
+This one (Fig. 12) contains both "Martin Luther King" and "Atlanta". You can see and click all the contained entities in the top right of this window.
 
 Fig. 12
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-18-50.png "Document Click-through")
