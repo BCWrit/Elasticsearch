@@ -162,3 +162,27 @@ At this point, we're done with set-up and ready to check out Archiviz itself! Cl
 Fig. 7
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/7-knowledge-graph.png "Knowledge Graph Generation")
 
+## Navigation
+
+When the graph loads, you will see an array of black dots in the center (representing documents in the collection), and several UI elements around the edges. The graph itself is a force-directed social network graph, which basically means that the dots, or nodes, are arranged according to how associated they are in the collection and the lines, which we will render in a second, represent their connections. At the top is a search bar with a settings button where you can further refine your search. On the left are the documents included in the current search. The right shows the entities included in these documents, identified and categorized by the NER process. (Fig. 8) 
+
+Fig. 8
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-15-45.png "User Interface")
+
+You can expand these menus to see the entities (Fig. 9) and click on them to display them in the graph. Clicking on an entity will render a colored node corresponding to the color of the entity category and labeled with the entity name (Fig. 10). 
+
+Fig. 9
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-16-28.png "Entity Menu")
+
+Fig. 10
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-16-54.png "Entity Nodes")
+
+You can click and drag these entities, which will rearrange them in relation to all the other selected entities. You can add or subtract entities at any point. From this view, you can see documents that are connected to one or more entity (Fig. 11) and click on the documents that may contain interesting combinations. 
+
+Fig. 11
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-18-23.png "Connected Entities")
+
+This one (Fig. 12) contains both "Martin Luther King" and "Atlanta".
+
+Fig. 12
+![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-18-50.png "Document Click-through")
