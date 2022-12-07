@@ -63,7 +63,7 @@ var graphFilterer = (function () {
     function filterRareTags(graphData, minimumMentionCount) {
         var tagCounts = {}
         for (var i = 0; i < graphData.links.length; i++) {
-            var tagName = graphData.links[i].target.id
+            var tagName = graphData.links[i].target
             if (tagCounts[tagName]) {
                 tagCounts[tagName]++
             } else {
@@ -72,7 +72,7 @@ var graphFilterer = (function () {
         }
         var i = 0
         while (i < graphData.links.length) {
-            var tagName = graphData.links[i].target.id
+            var tagName = graphData.links[i].target
             var tagCount = tagCounts[tagName]
             if (tagCount < minimumMentionCount) {
                 graphData.links.splice(i, 1)
