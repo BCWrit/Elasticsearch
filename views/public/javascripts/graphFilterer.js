@@ -41,12 +41,16 @@ var graphFilterer = (function () {
                       //  return passesFiltersNodes(node.tags[i], filterStrings)   
                     //}
                 } */
+
+                // return true;
             }),
             links: graphData.links.filter(function (link) {
                 if (typeof link.target === "string") {
                     return filterStrings.includes(link.target);
                 }
                 return passesFiltersLinks(link.target.id, filterStrings)
+
+                // return true;
             })
         }
     }

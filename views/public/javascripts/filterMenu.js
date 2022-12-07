@@ -436,6 +436,7 @@ var filterMenu = (function () {
         <p style='font-size: .9vw; margin: 0;'> To update the number of nodes,  </p>\
         <p style='font-size: .9vw; margin: 0;'>click the gear icon to the right of</p>\
         <p style='font-size: .9vw; margin: 0;'>the search bar.</p>";
+        sliderExp.innerHTML = "";
         sliderExp.appendChild(expContainer);
 
         for (var category in baseFilters) {

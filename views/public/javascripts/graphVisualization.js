@@ -178,29 +178,29 @@ var graphVisualization = (function () {
                 .on("drag", dragged)
                 .on("end", dragEnded));
 
-        node.append("text") //This appends text on the tag node
-            .text(function (d) {
-                var result;
-                if (d.title) { //This appends the title of the document and all of the tags
-                    result = d.title + "";
-                } else if (d.id) {
-                    result = d.id + "";
-                } else {
-                    result = "undetermined";
-                }
-                if (!d.tags) {
-                    result = result.split(':');
-                    if (result.length > 1) {
-                        result = result[1];
-                    } else {
-                        result = result[0];
-                    }
-                    return result;
-                }
-                return;
-            })
-            .attr('x', -30)
-            .attr('y', 15);
+        // node.append("text") //This appends text on the tag node
+        //     .text(function (d) {
+        //         var result;
+        //         if (d.title) { //This appends the title of the document and all of the tags
+        //             result = d.title + "";
+        //         } else if (d.id) {
+        //             result = d.id + "";
+        //         } else {
+        //             result = "undetermined";
+        //         }
+        //         if (!d.tags) {
+        //             result = result.split(':');
+        //             if (result.length > 1) {
+        //                 result = result[1];
+        //             } else {
+        //                 result = result[0];
+        //             }
+        //             return result;
+        //         }
+        //         return;
+        //     })
+        //     .attr('x', -30)
+        //     .attr('y', 15);
 
         /*node.append("text") //Deals with content of the tooltip
             .text(function(d) {
