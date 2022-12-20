@@ -78,7 +78,7 @@ var filterMenu = (function () {
             filters[category].add(tag);
             var node = document.getElementById("selected-tags");
             tag = cleanTag(tag);
-            node.innerHTML = node.innerHTML + "<button class='tag-button' id='" + category + "' style='border: 2px solid " + graphColors.getTagColor(category, "fill") + ";' onClick='closeTag()'>" + tag + "</button>";
+            node.innerHTML = node.innerHTML + "<button class='tag-button' id='" + category + "' data-category='" + category + "' style='border: 2px solid " + graphColors.getTagColor(category, "fill") + ";' onClick='closeTag()'>" + tag + "</button>";
             // filter turned on
             return true;
         }
@@ -394,7 +394,19 @@ var filterMenu = (function () {
         var baseFilters = getBaseFilters(
             tags, graph, categories, delimiter
         );
+
+        const selectedTags = document.getElementById("selected-tags")
         var filters = {};
+        if (selectedTags && selectedTags.children && selectedTags.children.length) {
+            for (let i = 0; i < selectedTags.children.length; i += 1) {
+                const node = selectedTags.children[i];
+                category = node.getAttribute("data-category");
+                if (!filters[category]) {
+                    filters[category] = new Set();
+                }
+                filters[category].add(`${category}:${node.innerHTML}`)
+            }
+        }
 
         var categoryFilterElementList = document.getElementById("tags");
         var buttonContainer = document.createElement("div");
