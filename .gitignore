@@ -1,0 +1,6 @@
+composer.phar
+composer.lock
+elasticsearch.ini
+vendor
+*.backup.*
+*.orig
