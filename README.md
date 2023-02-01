@@ -119,7 +119,7 @@ Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In 
 into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API". (Figs. 1 & 2)
 
 Fig. 1
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/1-imagemagick-path.png "ImageMagick Path")
+![alt text](/images/1-imagemagick-path.png "ImageMagick Path")
 
 Fig. 2
 ![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/2-enable-API.png "Enable API")
