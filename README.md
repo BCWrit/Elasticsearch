@@ -119,15 +119,15 @@ Use the menus to navigate to "Settings -> General -> ImageMagick Directory". In 
 into the field for "ImageMagick Directory". In "Settings -> API", check the box for "Enable API". (Figs. 1 & 2)
 
 Fig. 1
-![alt text](/images/1-imagemagick-path.png "ImageMagick Path")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/1-imagemagick-path.png "ImageMagick Path")
 
 Fig. 2
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/2-enable-API.png "Enable API")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/2-enable-API.png "Enable API")
 
 Next, click on your name in the top menu and navigate to API keys. Give the key a name (the name is arbitrary, it just needs to be unique), and click "Generate key". You'll need this key to work the plug-ins, so copy it somewhere. (Fig. 3)
 
 Fig. 3
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/3-API-keys.png "API Key Generation")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/3-API-keys.png "API Key Generation")
 
 That's it for the front-end set-up!
 
@@ -138,10 +138,10 @@ That's it for the front-end set-up!
 For the purposes of this tutorial, we'll assume that you already have text documents in your Omeka instance. And while you can read them on your computer screen, the computer itself can't yet. Therefore, we need to perform Optical Character Recognition (OCR) to get the in a state the computer can read. In the Omeka Admin interface, navigate to the OCR tab on the left side of the screen (this will only be here once you've completed the server-side install). You'll see three fields, one asking for the API key you just created, and two more asking for document IDs: you'll need to supply the range of documents you want the plug-in to OCR. You can find these numbers by navigating to the "Items" tab in the left menu, sorting by "Date Added", and hovering over the link for the first and last documents added to the collection. In the bottom left corner, a link for the item should display, with a number at the end. This is the ID Omeka assigned to the document: in our case, the documents range from 56 to 10,440, so that's what we'd put into the OCR fields (Remember these as they also work for the next step). (Fig. 4) Input your key and document IDs in the OCR screen (ours is shown below as an example) and press "OCR Documents". This may take a while as your server reads and renders your documents as plain text. (Fig. 5)
 
 Fig. 4
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/4-document-list.png "Locating Document IDs")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/4-document-list.png "Locating Document IDs")
 
 Fig. 5
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/5-OCR-tab.png "Starting OCR")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/5-OCR-tab.png "Starting OCR")
 
 
 ### Autotagging and Tag Management
@@ -149,7 +149,7 @@ Fig. 5
 You will get a success message when completed, at which point you should navigate to the "Autotagging" tab in the left menu. Input the API key and document ID range again and press "Tag Documents". This will identify the important people, places, and things in the collection: this forms the backbone for our knowledge graph. We've also provided the "Tag Management" tab where you can edit, delete, or add tags that we're identified correctly by the NER process.
 
 Fig. 6
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/6-autotagging.png "Tag Management")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/6-autotagging.png "Tag Management")
 
 ### Elasticsearch Indexing
 
@@ -160,29 +160,29 @@ To connect your tags to the advanced search capabilities of Elasticsearch, you'l
 At this point, we're done with set-up and ready to check out Archiviz itself! Click on the name of your collection in the top left, then on "Search Items" in the top menu. This screen allows you to query your collection in different ways. You can search for a specific term in the search bar, or you can choose the number of nodes (corresponding to documents) you want to see by using the slider and clicking "Load Graph". The first option lets you see the world of the term you search, while the latter can be used for a more general visualization, or to limit the number of nodes displayed for less powerful systems. (Fig. 7)
 
 Fig. 7
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/7-knowledge-graph.png "Knowledge Graph Generation")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/7-knowledge-graph.png "Knowledge Graph Generation")
 
 ## Navigation
 
 When the graph loads, you will see an array of black dots in the center (representing documents in the collection), and several UI elements around the edges. The graph itself is a force-directed social network graph, which basically means that the dots, or nodes, are arranged according to how associated they are in the collection and the lines, which we will render in a second, represent their connections. At the top is a search bar with a settings button where you can further refine your search. On the left are the documents included in the current search. The right shows the entities included in these documents, identified and categorized by the NER process. (Fig. 8) 
 
 Fig. 8
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-15-45.png "User Interface")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/Screenshot%20from%202022-11-01%2010-15-45.png "User Interface")
 
 You can expand these menus to see the entities (Fig. 9) and click on them to display them in the graph. Clicking on an entity will render a colored node corresponding to the color of the entity category and labeled with the entity name (Fig. 10). 
 
 Fig. 9
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-16-28.png "Entity Menu")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/Screenshot%20from%202022-11-01%2010-16-28.png "Entity Menu")
 
 Fig. 10
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-16-54.png "Entity Nodes")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/Screenshot%20from%202022-11-01%2010-16-54.png "Entity Nodes")
 
 You can click and drag these entities, which will rearrange them in relation to all the other selected entities. You can add or subtract entities at any point. From this view, you can see documents that are connected to one or more entity (Fig. 11) and click on the documents that may contain interesting combinations. 
 
 Fig. 11
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-18-23.png "Connected Entities")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/Screenshot%20from%202022-11-01%2010-18-23.png "Connected Entities")
 
 This one (Fig. 12) contains both "Martin Luther King" and "Atlanta". You can see and click all the contained entities in the top right of this window.
 
 Fig. 12
-![alt text](https://github.com/BCWrit/Archiviz/blob/main/images/Screenshot%20from%202022-11-01%2010-18-50.png "Document Click-through")
+![alt text](https://github.com/BCWrit/Archiviz/raw/main/images/Screenshot%20from%202022-11-01%2010-18-50.png "Document Click-through")
