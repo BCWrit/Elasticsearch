@@ -19,7 +19,7 @@ var filterMenu = (function () {
         for (var category in filters) {
             var iter = filters[category].values();
             for (var i = 0; i < filters[category].size; i++) {
-                filterArray.push(iter.next().value);
+               filterArray.push(iter.next().value);
             }
         }
 
@@ -78,7 +78,7 @@ var filterMenu = (function () {
             filters[category].add(tag);
             var node = document.getElementById("selected-tags");
             tag = cleanTag(tag);
-            node.innerHTML = node.innerHTML + "<button class='tag-button' id='" + category + "' data-category='" + category + "' style='border: 2px solid " + graphColors.getTagColor(category, "fill") + ";' onClick='closeTag()'>" + tag + "</button>";
+            node.innerHTML = node.innerHTML + "<button class='tag-button' id='" + category + "' style='border: 2px solid " + graphColors.getTagColor(category, "fill") + ";' onClick='closeTag()'>" + tag + "</button>";
             // filter turned on
             return true;
         }
@@ -89,7 +89,7 @@ var filterMenu = (function () {
         @param category: the category being toggled
         @param tag: the tag being toggled
     */
-    var untoggleTag = function (category, tag) {
+    var untoggleTag = function (category, tag) {   
         var newTag = category + ":" + tag;
         tag = tag.trim();
         var node = document.getElementsByClassName('filter-button');
@@ -112,7 +112,7 @@ var filterMenu = (function () {
         @param tag: the tag to clean
         @return cleaned tag
     */
-    var cleanTag = function (tag) {
+    var cleanTag = function(tag) {
         if (tag.includes("Person:")) {
             tag = tag.replace("Person:", "");
         } else if (tag.includes("Organization:")) {
@@ -131,7 +131,7 @@ var filterMenu = (function () {
         if (tag.includes("&")) {
             tag = tag.replace("&", "and");
         }
-        return tag;
+        return tag; 
     }
 
     /* Returns the base filters (including Folder topic, Folder, Box, and Misc)
@@ -175,10 +175,11 @@ var filterMenu = (function () {
         @param filtersTurnedOn: if the tag has been toggled
     */
     var selectTagFilterButton = function (button, category, filtersTurnedOn) {
-        var fill = "transparent";
-        if (filtersTurnedOn) {
+        var fill = "snow";
+        if (filtersTurnedOn){
             fill = graphColors.getTagColor(category, "fill");
         }
+    
         button.style.backgroundColor = fill;
     };
 
@@ -198,61 +199,68 @@ var filterMenu = (function () {
         splitTag = splitTag[splitTag.length - 1].split(category);
         splitTag = splitTag[splitTag.length - 1].trim();
         button.textContent = splitTag;
+        button.style.backgroundColor = "green"
 
         button.onclick = function () {
             var filtersTurnedOn = toggleTagFilter(
                 filters, baseFilters, tag, category
             );
 
-            selectTagFilterButton(button, category, filtersTurnedOn);
+            // selectTagFilterButton(button, category, filtersTurnedOn);
+            var fill = "snow"
+            if (filtersTurnedOn) {
+                fill = graphColors.getTagColor(category, "fill")
+            }
+            
+            button.style.setProperty("background-color", fill, "important")
 
             filter(filters, graph);
         };
         return button;
     }
-
+    
     /* Sorts tags alphabetically
         @param ul: the unordered list of tags
     */
-    var alphSort = function (ul) {
-        var list, i, switching, shouldSwitch;
-        if (typeof ul == "string") {
+	var alphSort = function (ul) {
+  		var list, i, switching, shouldSwitch;
+		if (typeof ul == "string") {
             ul = document.getElementById(ul);
         }
-        switching = true;
+		switching = true;
 
-        // Make a loop that will continue until
-        // no switching has been done:
-        while (switching) {
-            switching = false;
-            var originalList = ul.getElementsByTagName("LI");
-            // Loop through all list items:
-            for (i = 0; i < (originalList.length - 1); i++) {
-                shouldSwitch = false;
-                // Check if the next item should
-                // switch place with the current item:
-                if (originalList[i].innerHTML.toLowerCase() > originalList[i + 1].innerHTML.toLowerCase()) {
-                    // If next item is alphabetically lower than current item,
-                    // mark as a switch and break the loop:
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-            if (shouldSwitch) {
-                // If a switch has been marked, make the switch
-                // and mark the switch as done:
-                originalList[i].parentNode.insertBefore(originalList[i + 1], originalList[i]);
-                switching = true;
-            }
-        }
-    }
+		// Make a loop that will continue until
+  		// no switching has been done:
+  		while (switching) {
+    		switching = false;
+			var originalList = ul.getElementsByTagName("LI");
+			// Loop through all list items:
+    		for (i = 0; i < (originalList.length - 1); i++) {
+      			shouldSwitch = false;
+     			// Check if the next item should
+      			// switch place with the current item:
+      			if (originalList[i].innerHTML.toLowerCase() > originalList[i + 1].innerHTML.toLowerCase()) {
+        			// If next item is alphabetically lower than current item,
+        			// mark as a switch and break the loop:
+        			shouldSwitch = true;
+        			break;
+      			}
+			}
+			if (shouldSwitch) {
+      			// If a switch has been marked, make the switch
+      			// and mark the switch as done:
+      			originalList[i].parentNode.insertBefore(originalList[i + 1], originalList[i]);
+      			switching = true;
+    		}
+		}
+  	}
 
     /* Sorts tags by popularity
         @param ul: the unordered list of tags
     */
     var popSort = function (ul) {
         var list, i, switching, shouldSwitch;
-        if (typeof ul != "undefined") {
+        if(typeof ul != "undefined") {
             ul = document.getElementById(ul);
         }
         switching = true;
@@ -260,7 +268,7 @@ var filterMenu = (function () {
         // Make a loop that will continue until
         // no switching has been done:
         while (switching) {
-            switching = false;
+            switching = false; 
             if (ul != null) {
                 var originalList = ul.getElementsByTagName("LI");
                 // Loop through all list items:
@@ -333,16 +341,16 @@ var filterMenu = (function () {
 
             var li = document.createElement("li");
             li.style.maxWidth = "150px";
-            //Changed from 300, need to wrap text?
+	           //Changed from 300, need to wrap text?
             li.appendChild(tagFilterElement);
             tagFilters.appendChild(li);
-        }
+	    } 
 
         if (popularSort == true) {
             popSort(tagFilters);
         } else {
-            alphSort(tagFilters);
-        }
+            alphSort(tagFilters);    
+        }  
         container.appendChild(tagFilters);
 
         arrow.onclick = function () {
@@ -359,7 +367,7 @@ var filterMenu = (function () {
             var filtersTurnedOn = toggleCategoryFilter(
                 filters, baseFilters, category
             );
-
+            
             /* 11/11/19 - changed from transparent to snow */
             // fixed problem of changing to transparent after onclick and deselecting category
             var fill = "snow";
@@ -368,11 +376,19 @@ var filterMenu = (function () {
             }
             container.style.backgroundColor = fill;
 
-            for (var i = 0; i < tagFilters.children.length; i++) {
-                //selectTagFilterButton(
-                //  tagFilters.children[i].children[0], category, false
-                //);
-            }
+            // grab the individual tags underneath the big category
+            var individual_tags = container.children[2]
+            individual_tags.style.backgroundColor = fill
+
+            // old code, keeping here for future reference  (05.02.2023)
+            // for (var i = 0; i < tagFilters.children.length; i++) {
+            //     //tagFilters.children[i].style.backgroundColor = fill
+            //     tagFilters.children[i].style.setProperty("background-color", fill, "important")
+            //     // button.style.setProperty("background-color", fill, "important")
+            //     // selectTagFilterButton(
+            //     //   tagFilters.children[i].children[0], category, false
+            //     // );
+            // }
 
             filter(filters, graph);
         };
@@ -394,20 +410,8 @@ var filterMenu = (function () {
         var baseFilters = getBaseFilters(
             tags, graph, categories, delimiter
         );
-
-        const selectedTags = document.getElementById("selected-tags")
         var filters = {};
-        if (selectedTags && selectedTags.children && selectedTags.children.length) {
-            for (let i = 0; i < selectedTags.children.length; i += 1) {
-                const node = selectedTags.children[i];
-                category = node.getAttribute("data-category");
-                if (!filters[category]) {
-                    filters[category] = new Set();
-                }
-                filters[category].add(`${category}:${node.innerHTML}`)
-            }
-        }
-
+        
         var categoryFilterElementList = document.getElementById("tags");
         var buttonContainer = document.createElement("div");
         buttonContainer.innerHTML = "\
@@ -423,7 +427,7 @@ var filterMenu = (function () {
             </p>\
         </fieldset>";
         if (remade == true) {
-            categoryFilterElementList.innerHTML = "";
+            categoryFilterElementList.innerHTML = "";    
         }
 
         if (popularSort == true) {
@@ -441,42 +445,41 @@ var filterMenu = (function () {
         }
 
         categoryFilterElementList.appendChild(buttonContainer);
-
+        
         var sliderExp = document.getElementById("slider-text");
-        var expContainer = document.createElement("div");
+        var expContainer = document.createElement("div"); 
         expContainer.innerHTML = "\
         <p style='font-size: .9vw; margin: 0;'> To update the number of nodes,  </p>\
         <p style='font-size: .9vw; margin: 0;'>click the gear icon to the right of</p>\
         <p style='font-size: .9vw; margin: 0;'>the search bar.</p>";
-        sliderExp.innerHTML = "";
         sliderExp.appendChild(expContainer);
-
+        
         for (var category in baseFilters) {
             if (baseFilters[category].size !== 0) {
-                if ((!category.startsWith("Box")) && (!category.startsWith("Misc"))) {
-                    if (category.startsWith("Folder")) {
-                        if (!category.includes("opic")) {
-                            return;
-                        } else {
-                            var categoryFilterElement = getCategoryFilterElement(
-                                filters, baseFilters, category, delimiter, graph
-                            );
-                            var li = document.createElement("li");
-                            li.appendChild(categoryFilterElement);
-                            categoryFilterElementList.appendChild(li);
-                            return;
-                        }
-                    } else {
-                        var categoryFilterElement = getCategoryFilterElement(
-                            filters, baseFilters, category, delimiter, graph
-                        );
-                        var li = document.createElement("li");
-                        li.appendChild(categoryFilterElement);
-                        categoryFilterElementList.appendChild(li);
-                    }
-                }
+            	if ((!category.startsWith("Box")) && (!category.startsWith("Misc"))) {
+            		if (category.startsWith("Folder")) {
+            			if (!category.includes("opic")) {
+            				return;
+            			} else {
+            				var categoryFilterElement = getCategoryFilterElement(
+			                    filters, baseFilters, category, delimiter, graph
+			                );
+			            	var li = document.createElement("li");
+			            	li.appendChild(categoryFilterElement);
+			            	categoryFilterElementList.appendChild(li);
+			            	return;
+            			}
+            		} else {
+			            var categoryFilterElement = getCategoryFilterElement(
+			                    filters, baseFilters, category, delimiter, graph
+			                );
+			            var li = document.createElement("li");
+			            li.appendChild(categoryFilterElement);
+			            categoryFilterElementList.appendChild(li);
+			        }
+	            }
             }
-        }
+        }       
 
     }
     return {
@@ -485,4 +488,7 @@ var filterMenu = (function () {
         untoggleTag
     }
 }());
+
+
+
 
