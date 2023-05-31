@@ -43,7 +43,14 @@ var graphVisualization = (function () {
         @param color: a function that takes in a String as input and produces a
             hexadecimal number color as output.
     */
-    function renderGraphOnSVG(graphData, color) {
+    const previewFileNameMap = {};
+    function renderGraphOnSVG(graphData, color, allResults) {
+        if (allResults && allResults.hits && allResults.hits.hits)
+            allResults.hits.hits.forEach(hit => {
+                const { _id, _source: { files = [] } = {} } = hit;
+                previewFileNameMap[_id] = files[0].previewfilename;
+            });
+
         function resetSVG() {
             simulation.nodes([])
                 .on("tick", null);
@@ -178,82 +185,115 @@ var graphVisualization = (function () {
                 .on("drag", dragged)
                 .on("end", dragEnded));
 
-        // node.append("text") //This appends text on the tag node
-        //     .text(function (d) {
-        //         var result;
-        //         if (d.title) { //This appends the title of the document and all of the tags
-        //             result = d.title + "";
-        //         } else if (d.id) {
-        //             result = d.id + "";
-        //         } else {
-        //             result = "undetermined";
-        //         }
-        //         if (!d.tags) {
-        //             result = result.split(':');
-        //             if (result.length > 1) {
-        //                 result = result[1];
-        //             } else {
-        //                 result = result[0];
-        //             }
-        //             return result;
-        //         }
-        //         return;
-        //     })
-        //     .attr('x', -30)
-        //     .attr('y', 15);
-
-        /*node.append("text") //Deals with content of the tooltip
-            .text(function(d) {
+        node.append("position") //This appends text on the tag node
+            .text(function (d) {
                 var result;
                 if (d.title) { //This appends the title of the document and all of the tags
-                    result = d.title+"";
+                    result = d.title + "";
                 } else if (d.id) {
-                    result = d.id+"";
+                    result = d.id + "";
                 } else {
                     result = "undetermined";
                 }
-                result = result.split('>');
-                if (result.length > 1) {
-                    result = result[1];
-                } else {
-                    result = result[0];
-                }
-                result = result.split('<')[0].trim();
-                if (d.tags) {
-                    for (var i = 0; i < d.tags.length; i++) {
-                        result += "; " + d.tags[i];
+                if (!d.tags) {
+                    result = result.split(':');
+                    if (result.length > 1) {
+                        result = result[1];
+                    } else {
+                        result = result[0];
                     }
-                } //We instead decided to only show the folder topic to clean up the tooltip
-                if (d.tags) {
-                    for (var i = 0; i < d.tags.length; i++) {
-                        if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
-                            result = d.tags[i];
-                        }
-                    }
+                    return result;
                 }
-                result = "Title";
-                return result;
-            });*/
+                return;
+            })
+            .attr('x', -30)
+            .attr('y', 15);
 
-        /*node.append("title") //Deals with content of the tooltip
-            .text(function(d) {
+        // node.append('rect')
+        //     .attr('width', 150)
+        //     .attr('height', 100)
+        //     .attr('x', 10)
+        //     .attr('y', 10)
+        //     .style('fill', 'red')
+        //     .attr('stroke', 'black');
+        node.append("foreignObject")
+            .attr('height', 100)
+            .attr('width', 500)
+            .attr('x', 10)
+            .attr('y', 10)
+            .attr('style', 'red')
+
+        node.append("foreignObject") //Deals with content of the tooltip
+            .attr('x', 10)
+            .attr('y', 10)
+            .attr("class", "hover-preview")
+            .html(function (d) {
+                // console.log(`/files/thumnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`)
                 var result;
-
-                if (d.tags) {
-                    for (var i = 0; i < d.tags.length; i++) {
-                        if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
-                            result = d.tags[i];
-                        }
-                    }
+                if (d.title) { //This appends the title of the document and all of the tags
+                    result = d.title + "";
+                } else if (d.id) {
+                    result = d.id + "";
+                } else {
+                    result = "undetermined";
                 }
-                return result;
-            });*/
+                // result = result.split('>');
+                // if (result.length > 1) {
+                //     result = result[1];
+                // } else {
+                //     result = result[0];
+                // }
+                // result = result.split('<')[0].trim();
+                // if (d.tags) {
+                //     for (var i = 0; i < d.tags.length; i++) {
+                //         result += "; " + d.tags[i];
+                //     }
+                // } //We instead decided to only show the folder topic to clean up the tooltip
+                // if (d.tags) {
+                //     for (var i = 0; i < d.tags.length; i++) {
+                //         if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
+                //             result = d.tags[i];
+                //         }
+                //     }
+                // }
+                
+                var resultWrapper = "<div><span>" + result + "</span>";
+
+                if (previewFileNameMap[d.id])
+                    resultWrapper += `<img src="${`/files/thumbnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`}" />`
+                
+                resultWrapper += "</div>";
+                return resultWrapper;
+            })
+            // .attr('x', 10)
+            // .attr('y', 10);
+        // var dom_img = document.createElement("img")
+        // dom_img.src = `/files/thumnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`
+        // node.append(dom_img)
+            
+
+    
+        //Unneeded (duplicated?) code
+        
+        // node.append("title") //Deals with content of the tooltip
+        //     .text(function (d) {
+        //         var result;
+
+        //         if (d.tags) {
+        //             for (var i = 0; i < d.tags.length; i++) {
+        //                 if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
+        //                     result = d.tags[i];
+        //                 }
+        //             }
+        //         }
+        //         return result;
+        //     });
 
         node.on("click", function (d) {
             var g = d3.select(this);
             g.select("circle").style("fill", "#B3A369");  //Changes color of node after clicked
             if (d.group === 1) {
-                window.open('/items/show/' + d.id.split("_")[1]);
+                window.open('./items/show/' + d.id.split("_")[1]);
             } else {
                 var query = d.id;
                 var prefix = '';
@@ -263,7 +303,7 @@ var graphVisualization = (function () {
                 if (query.indexOf(':') >= 0) {
                     query = d.id.split(':')[1];
                 }
-                url = '/elasticsearch?q=' + prefix +
+                url = './elasticsearch?q=' + prefix +
                     '"' + query.trim() + '"';
                 window.open(url);
             }
@@ -295,32 +335,32 @@ var graphVisualization = (function () {
         @return the tooltip 
     */
     function setupTooltipBehavior(svg, graph, color) {
-        /*var tooltip = svg.select("body").append("div")
+        var tooltip = svg.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 1);
 
         svg.selectAll("circle")
-            .on("mouseover", function(d) {
+            .on("mouseover", function (d) {
                 tooltip.transition()
-                .duration(200)
-                .style("opacity", 0.9);
+                    .duration(200)
+                    .style("opacity", 0.9);
 
                 tooltip.html("fffffffffffffff" + "<br>")
-                .style("left", d3.event.pageX + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
             })
-            .on("mouseout", function(d) {
+            .on("mouseout", function (d) {
                 tooltip.transition()
-                .style("opacity", 0);
+                    .style("opacity", 0);
             });
-        return tooltip;*/
-        //new image tooltip code - 9/23/2020
-        var tooltip = d3.select('body').append('div')
+        return tooltip;
+
+        /*var tooltip = d3.select('body').append('div')
             .attr('id', 'tooltip')
             .attr('style', 'position: absolute; opacity: 0;');
         var list = document.getElementsByClassName("elasticsearch-result");
         svg.selectAll('circle')
-            .on('mouseover', function (d) {
+            .on('mouseover', function(d) {
                 for (let item of list) {
                     var c = item.children;
                     if (c[1].getAttribute("href") == '/items/show/' + d.id.split("_")[1]) {
@@ -328,25 +368,25 @@ var graphVisualization = (function () {
                         for (let img of image) {
                             var string = "<img src=" + img.src + ">";
                             tooltip.html(string) //this will add the image on mouseover
-                                .style("left", (d3.event.pageX + 10) + "px")
+                                .style("left", (d3.event.pageX + 10) + "px")     
                                 .style("top", (d3.event.pageY + 50) + "px")
                             tooltip.transition().duration(200).style('opacity', 1)
                             return;
                         }
                     } else {
-                        /*tooltip.text("No preview available")
+                        tooltip.text("No preview available")
                             .style("left", (d3.event.pageX + 10) + "px")     
                             .style("top", (d3.event.pageY + 50) + "px")
-                        tooltip.transition().duration(200).style('opacity', 1)*/
+                        tooltip.transition().duration(200).style('opacity', 1)
                     }
                 }
             })
-            .on('mouseout', function () {
+            .on('mouseout', function() {
                 tooltip.style('opacity', 0)
             })
-            .on('mousemove', function () {
-                tooltip.style('left', (d3.event.pageX + 10) + 'px').style('top', (d3.event.pageY + 10) + 'px')
-            });
+            .on('mousemove', function() {
+                tooltip.style('left', (d3.event.pageX+10) + 'px').style('top', (d3.event.pageY+10) + 'px')
+            });*/
         return tooltip
     }
 

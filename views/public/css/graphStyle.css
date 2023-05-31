@@ -24,3 +24,32 @@ DIV.gt-page-body {
   margin: 3px;
   height: auto;
 }
+
+g.nodes g:hover foreignObject.hover-preview {
+  display: flex;
+}
+
+g.nodes g foreignObject.hover-preview {
+  height: 300px;
+  width: 300px;
+  display: none;
+  outline: 2px solid black;
+  opacity: 1;
+}
+
+g.nodes g foreignObject.hover-preview div {
+  /* height: 200px;
+  width: 200px; */
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+g.nodes g foreignObject.hover-preview div img{
+  height: 100px;
+  width: auto; 
+}
+
+g.nodes g foreignObject.hover-preview div > * {
+  flex: 1;
+}
