@@ -166,13 +166,12 @@ var showGraph = function() {
                 // D3 does weird things to the nodes in complete data the first time it is run, and this
                 // makes it not work with the filters, so I need to call this twice because I am a
                 // potato
-                console.log({
-                    data
-                });
+
+                var results = <?php echo json_encode($results) ?>;
 
                 graphVisualization.renderGraphOnSVG(graphFilterer.filterGraphData([], completeGraphData),
-                    graphColors.getTagColor)
-                var results = <?php echo json_encode($results) ?>;
+                    graphColors.getTagColor, results)
+                
                 filterMenu.generateFilterMenu(
                     results['aggregations']['tags']['buckets'],
                     completeGraphData, graphColors.getTagCategoryList()

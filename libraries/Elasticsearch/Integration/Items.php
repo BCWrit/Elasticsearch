@@ -128,7 +128,7 @@ class Elasticsearch_Integration_Items extends Elasticsearch_Integration_BaseInte
                 $files[] = [
                     'id'      => $itemFile->id,
                     'title'   => $itemFile->getProperty('display_title'),
-                    'element' => $fileElementTexts['data'],
+                    'element' => $fileElementTexts['element'],
                     'previewfilename' => $itemFile['filename']
                 ];
             }

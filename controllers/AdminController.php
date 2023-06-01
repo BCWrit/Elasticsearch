@@ -39,6 +39,7 @@ class Elasticsearch_AdminController extends Omeka_Controller_AbstractActionContr
     public function reindexAction() {
         $this->_handlePermissions();
         $form = new Elasticsearch_Form_Index();
+
         if ($this->_request->isPost()&& $form->isValid($_POST)) {
             foreach($form->getValues() as $option => $value) {
                 set_option($option, $value);
@@ -57,7 +58,7 @@ class Elasticsearch_AdminController extends Omeka_Controller_AbstractActionContr
             $this->view->assign("jobs", $jobs);
             $this->view->form = new Elasticsearch_Form_Index();
         }
-    }
+    }   
 
     public function displayAction() {
         // set options for how results are displayed

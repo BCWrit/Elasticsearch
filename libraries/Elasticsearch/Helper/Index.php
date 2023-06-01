@@ -110,67 +110,65 @@ class Elasticsearch_Helper_Index {
      */
     public static function getMappings() {
         $mappings = [
-            'doc' => [
-                'dynamic' => false,
-                'properties' => [
-                    // Common Mappings
-                    'resulttype'  => ['type' => 'keyword'],
-                    'title'       => ['type' => 'text'],
-                    'description' => ['type' => 'text'],
-                    'text'        => ['type' => 'text'],
-                    'model'       => ['type' => 'keyword'],
-                    'modelid'     => ['type' => 'integer'],
-                    'featured'    => ['type' => 'boolean'],
-                    'public'      => ['type' => 'boolean'],
-                    'created'     => ['type' => 'date'],
-                    'updated'     => ['type' => 'date'],
-                    'tags'        => ['type' => 'keyword'],
-                    'slug'        => ['type' => 'keyword'],
-                    'url'         => ['type' => 'keyword'],
+            'dynamic' => false,
+            'properties' => [
+                // Common Mappings
+                'resulttype'  => ['type' => 'keyword'],
+                'title'       => ['type' => 'text'],
+                'description' => ['type' => 'text'],
+                'text'        => ['type' => 'text'],
+                'model'       => ['type' => 'keyword'],
+                'modelid'     => ['type' => 'integer'],
+                'featured'    => ['type' => 'boolean'],
+                'public'      => ['type' => 'boolean'],
+                'created'     => ['type' => 'date'],
+                'updated'     => ['type' => 'date'],
+                'tags'        => ['type' => 'keyword'],
+                'slug'        => ['type' => 'keyword'],
+                'url'         => ['type' => 'keyword'],
 
-                    // Item-Specific
-                    'collection' => [
-                        'type' => 'text',
-                        'fields' => ['keyword' => ['type' => 'keyword']]
-                    ],
-                    'itemtype'   => ['type' => 'keyword'],
-                    'element'    => ['type' => 'object', 'dynamic' => true, 'properties' => new stdClass()],
-                    'elements'   => [
-                        'type' => 'object',
-                        'properties' => [
-                            'id'          => ['type' => 'integer', 'index' => false],
-                            'displayName' => ['type' => 'keyword', 'index' => false],
-                            'name'        => ['type' => 'keyword', 'index' => false],
-                            'text'        => ['type' => 'text', 'index' => false],
-                        ]
-                    ],
-                    'files' => [
-                        'type' => 'object',
-                        'properties' => [
-                            'id'      => ['type' => 'integer', 'index' => false],
-                            'title'   => ['type' => 'keyword'],
-                            'element' => ['type' => 'object', 'dynamic' => true, 'properties' => new stdClass()]
-                        ]
-                    ],
+                // Item-Specific
+                'collection' => [
+                    'type' => 'text',
+                    'fields' => ['keyword' => ['type' => 'keyword']]
+                ],
+                'itemtype'   => ['type' => 'keyword'],
+                'element'    => ['type' => 'object', 'dynamic' => true, 'properties' => new stdClass()],
+                'elements'   => [
+                    'type' => 'object',
+                    'properties' => [
+                        'id'          => ['type' => 'integer', 'index' => false],
+                        'displayName' => ['type' => 'keyword', 'index' => false],
+                        'name'        => ['type' => 'keyword', 'index' => false],
+                        'text'        => ['type' => 'text', 'index' => false],
+                    ]
+                ],
+                'files' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'id'      => ['type' => 'integer', 'index' => false],
+                        'title'   => ['type' => 'keyword'],
+                        'element' => ['type' => 'object', 'dynamic' => true, 'properties' => new stdClass()]
+                    ]
+                ],
 
-                    // Exhibit-Specific
-                    'credits' => ['type' => 'text'],
-                    'exhibit' => [
-                        'type' => 'text',
-                        'fields' => ['keyword' => ['type' => 'keyword']]
-                    ],
-                    'blocks' => [
-                        'type' => 'object',
-                        'properties' => [
-                            'text'        => ['type' => 'text'],
-                            'attachments' => ['type' => 'text']
-                        ]
-                    ],
+                // Exhibit-Specific
+                'credits' => ['type' => 'text'],
+                'exhibit' => [
+                    'type' => 'text',
+                    'fields' => ['keyword' => ['type' => 'keyword']]
+                ],
+                'blocks' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'text'        => ['type' => 'text'],
+                        'attachments' => ['type' => 'text']
+                    ]
+                ],
 
-                    // Neatline-Specific
-                    'neatline'        => ['type' => 'text'],
-                    'neatlineRecords' => ['type' => 'integer', 'index' => false]
-                ]
+                // Neatline-Specific
+                'neatline'        => ['type' => 'text'],
+                'neatlineRecords' => ['type' => 'integer', 'index' => false]
             ]
         ];
         return $mappings;

@@ -53,9 +53,9 @@
                 ?>
     </div>
     <div id="elasticsearch-footer" style="border-top: 3px solid;">
-        <div class="w3-col l4" id="result-amt">
-            <?php $totalResults = isset($results['hits']['total']) ? $results['hits']['total'].' '.__('results') : null; ?>
-            <?php echo " $totalResults"; ?>
+        <div class="w3-col l4" id="result-amt">	
+            <?php $totalResults = isset($results['hits']['total']) ? $results['hits']['total']['value'].' '.__('results') : null; ?>
+            <?php echo " $totalResults" ?>
             <input id="amt" type="hidden" name="r" value=<?php echo "$totalResults"; ?>>
         </div>
         <div class='w3-col l8' style="float:right;">

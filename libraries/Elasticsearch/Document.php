@@ -15,7 +15,7 @@
 class Elasticsearch_Document {
     public $id = null;
     public $index = '';
-    public $type = 'doc';
+    // public $type = 'doc';
     public $body = [];
 
     public function __construct($docIndex, $docId=null) {
@@ -39,7 +39,7 @@ class Elasticsearch_Document {
     public function getParams() {
         $params = [
             'index' => $this->index,
-            'type' => $this->type,
+            // 'type' => $this->type,
         ];
         if(isset($this->id)) {
             $params['id'] = $this->id;
@@ -117,7 +117,6 @@ class Elasticsearch_Document {
             $action_and_metadata = [
                 'index' => [
                     '_index' => $doc->index,
-                    '_type'  => $doc->type,
                 ]
             ];
             if(isset($doc->id)) {
