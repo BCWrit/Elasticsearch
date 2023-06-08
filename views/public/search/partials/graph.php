@@ -112,7 +112,7 @@ $(function() {
     </form>
 </customdiv>
 <div style='width: 100%; height: inherit; display: block;'>
-    <div id="selected-tags" style='padding-top: 65px'></div>
+    <div id="selected-tags" style='padding-top: 65px; padding-right: 280px;'></div>
     <svg display='none' id='connections-graph'
         style='width: 72%; height: 80%; padding-top: 0px; justify-content: left;'></svg>
     <div id="loader"></div>

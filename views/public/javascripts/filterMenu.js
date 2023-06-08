@@ -70,7 +70,10 @@ var filterMenu = (function () {
             var node = document.getElementById("selected-tags");
             tag = cleanTag(tag);
             var index = node.innerHTML.lastIndexOf(tag);
-            node.innerHTML = node.innerHTML.substring(0, index - 89 + category.length) + node.innerHTML.substring(index + tag.length + 9, node.innerHTML.length);
+            if (index !== -1){
+                node.innerHTML = node.innerHTML.substring(0, index - 89 + category.length) + node.innerHTML.substring(index + tag.length + 9, node.innerHTML.length);
+            }
+
             // filter turned off
             return false;
         } else {

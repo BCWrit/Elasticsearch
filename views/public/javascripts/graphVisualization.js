@@ -209,26 +209,14 @@ var graphVisualization = (function () {
             .attr('x', -30)
             .attr('y', 15);
 
-        // node.append('rect')
-        //     .attr('width', 150)
-        //     .attr('height', 100)
-        //     .attr('x', 10)
-        //     .attr('y', 10)
-        //     .style('fill', 'red')
-        //     .attr('stroke', 'black');
-        node.append("foreignObject")
-            .attr('height', 100)
-            .attr('width', 500)
-            .attr('x', 10)
-            .attr('y', 10)
-            .attr('style', 'red')
+        node.append("rect")
+            .style("fill", "#B3A369")
+            .attr("stroke", "black")
+            .style("opacity", 0)
+            .style("pointer-events", "none");
 
-        node.append("foreignObject") //Deals with content of the tooltip
-            .attr('x', 10)
-            .attr('y', 10)
-            .attr("class", "hover-preview")
-            .html(function (d) {
-                // console.log(`/files/thumnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`)
+        node.append("text") //Deals with content of the tooltip
+            .text(function (d) {
                 var result;
                 if (d.title) { //This appends the title of the document and all of the tags
                     result = d.title + "";
@@ -237,34 +225,84 @@ var graphVisualization = (function () {
                 } else {
                     result = "undetermined";
                 }
-                // result = result.split('>');
-                // if (result.length > 1) {
-                //     result = result[1];
-                // } else {
-                //     result = result[0];
-                // }
-                // result = result.split('<')[0].trim();
-                // if (d.tags) {
-                //     for (var i = 0; i < d.tags.length; i++) {
-                //         result += "; " + d.tags[i];
-                //     }
-                // } //We instead decided to only show the folder topic to clean up the tooltip
-                // if (d.tags) {
-                //     for (var i = 0; i < d.tags.length; i++) {
-                //         if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
-                //             result = d.tags[i];
-                //         }
-                //     }
-                // }
-                
-                var resultWrapper = "<div><span>" + result + "</span>";
-
-                if (previewFileNameMap[d.id])
-                    resultWrapper += `<img src="${`/files/thumbnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`}" />`
-                
-                resultWrapper += "</div>";
-                return resultWrapper;
+                result = result.split('>');
+                if (result.length > 1) {
+                    result = result[1];
+                } else {
+                    result = result[0];
+                }
+                result = result.split('<')[0].trim();
+                if (d.tags) {
+                    for (var i = 0; i < d.tags.length; i++) {
+                        result += "; " + d.tags[i];
+                    }
+                } //We instead decided to only show the folder topic to clean up the tooltip
+                if (d.tags) {
+                    for (var i = 0; i < d.tags.length; i++) {
+                        if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
+                            result = d.tags[i];
+                        }
+                    }
+                }
+                return result;
             })
+            .attr("x", 15)
+            .attr("y", 15)
+            .style("fill", "black")
+            .style("font-size", "24px")
+            .style("font-weight", "bold")
+            .style("outline", "none");
+
+
+        // node.append("foreignObject")
+        //     .attr('height', 100)
+        //     .attr('width', 500)
+        //     .attr('x', 10)
+        //     .attr('y', 10)
+        //     .attr('style', 'red')
+
+        // node.append("foreignObject") //Deals with content of the tooltip
+        //     .attr('x', 10)
+        //     .attr('y', 10)
+        //     .attr("class", "hover-preview")
+        //     .html(function (d) {
+        //         // console.log(`/files/thumnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`)
+        //         var result;
+        //         if (d.title) { //This appends the title of the document and all of the tags
+        //             result = d.title + "";
+        //         } else if (d.id) {
+        //             result = d.id + "";
+        //         } else {
+        //             result = "undetermined";
+        //         }
+        //         // result = result.split('>');
+        //         // if (result.length > 1) {
+        //         //     result = result[1];
+        //         // } else {
+        //         //     result = result[0];
+        //         // }
+        //         // result = result.split('<')[0].trim();
+        //         // if (d.tags) {
+        //         //     for (var i = 0; i < d.tags.length; i++) {
+        //         //         result += "; " + d.tags[i];
+        //         //     }
+        //         // } //We instead decided to only show the folder topic to clean up the tooltip
+        //         // if (d.tags) {
+        //         //     for (var i = 0; i < d.tags.length; i++) {
+        //         //         if (d.tags[i].startsWith("Folder topic")) { //Only grab the folder topic
+        //         //             result = d.tags[i];
+        //         //         }
+        //         //     }
+        //         // }
+                
+        //         var resultWrapper = "<div><span>" + result + "</span>";
+
+        //         if (previewFileNameMap[d.id])
+        //             resultWrapper += `<img src="${`/files/thumbnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`}" />`
+                
+        //         resultWrapper += "</div>";
+        //         return resultWrapper;
+        //     })
             // .attr('x', 10)
             // .attr('y', 10);
         // var dom_img = document.createElement("img")
@@ -308,6 +346,34 @@ var graphVisualization = (function () {
                 window.open(url);
             }
         });
+
+        node.on("mouseover", function (d){
+            var g = d3.select(this);
+            g.select("circle")
+                .transition()
+                .duration(200)
+                .attr("r", 8);
+
+            var bbox = g.select("text").node().getBBox();
+            g.select("rect")
+                .attr("x", bbox.x - 5)
+                .attr("y", bbox.y - 5)
+                .attr("width", bbox.width + 10)
+                .attr("height", bbox.height + 10)
+                .style("opacity", 1)
+                .style("fill", "#B3A369");
+        })
+        .on("mouseout", function() { 
+            var g = d3.select(this);
+            var originalRadius = d3.select("circle").attr("r");
+            g.select("circle")
+                .transition()
+                .duration(200)
+                .attr("r", originalRadius);
+            g.select("rect")
+                .style("opacity", 0);
+          });
+
         return node
     }
 
