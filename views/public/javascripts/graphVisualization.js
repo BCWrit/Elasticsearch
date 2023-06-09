@@ -258,7 +258,6 @@ var graphVisualization = (function () {
                 // }
                 
                 var resultWrapper = "<div><span>" + result + "</span>";
-
                 if (previewFileNameMap[d.id])
                     resultWrapper += `<img src="${`/files/thumbnails/${previewFileNameMap[d.id].split('.')[0]}.jpg`}" />`
                 
