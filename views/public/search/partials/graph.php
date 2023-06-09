@@ -142,7 +142,6 @@ var showGraph = function() {
             document.getElementById('amount2').disabled = false;
         };
 
-
         myFunction();
         var completeGraphData
         graphVisualization.initSimulation();
@@ -157,8 +156,6 @@ var showGraph = function() {
         }
 
         graphDataRequester.requestCompleteGraphData(maxDocumentsValue) // limits the amt of nodes loaded
-
-
             .then(function(data) {
                 completeGraphData = data
                 //console.log(completeGraphData);

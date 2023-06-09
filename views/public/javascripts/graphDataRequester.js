@@ -92,7 +92,7 @@ var graphDataRequester = (function () {
     function requestCompleteGraphData(maxDocuments) {
         return new Promise(function (resolve, reject) {
             jQuery.post(setURLParam('graphData', 0), {}, function (partialData) {
-                var totalResults = Math.min(partialData.totalResults, maxDocuments);
+                var totalResults = Math.min(partialData.totalResults.value, maxDocuments);
                 var maxDocumentsPerChunk = partialData.limit;
 
                 var completeData = {}
