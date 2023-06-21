@@ -93,14 +93,25 @@ and uncomment and change the value of ";upload.maxFileSize" to "10M". These chan
 
 ### Last step: Install the plug-ins
 Back in the shell, 
-```
+```bash
 cd /var/www/[omeka directory]/plugins
 ```
-. Again, you'll need to check and insert the name of the Omeka directory on your server: this will change as new versions are released. Type 
+
+Again, you'll need to check and insert the name of the Omeka directory on your server: this will change as new versions are released. Type 
+```bash
+git clone https://github.com/BCWrit/Elasticsearch.git
 ```
-wget https://github.com/BCWrit/Archiviz
+which will download this repo to your server. You'll also need to 
+```bash
+git clone https://github.com/BCWrit/Autotagging.git
 ```
-which will download this repo to your server. Then type 
+and
+```bash
+git clone https://github.com/BCWrit/OCR.git
+```
+to grab the NER and OCR component plug-ins as well.
+
+Then type 
 ```
 unzip [name of zipfile]
 ```
